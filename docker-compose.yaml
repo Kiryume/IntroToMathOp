@@ -1,0 +1,8 @@
+services:
+  sagemath-lab:
+    build: .
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./lab:/home/sage/project
+    restart: unless-stopped
