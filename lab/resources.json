@@ -1,0 +1,182 @@
+{
+  "Convexity": {
+    "Definitions": [
+      {
+        "Reference": "Definition 4.19",
+        "Source": "imo25.pdf#section.4.3",
+        "Description": "Definition of a convex subset of R^n (contains the line segment between any two points).",
+        "Used_In": "General proofs of set convexity"
+      },
+      {
+        "Reference": "Definition 4.24",
+        "Source": "imo25.pdf#section.4.3",
+        "Description": "Definition of a convex function (inequality condition).",
+        "Used_In": "General proofs of function convexity"
+      }
+    ],
+    "Lemmas_and_Theorems": [
+      {
+        "Reference": "Lemma 4.27",
+        "Source": "imo25.pdf#section.4.3",
+        "Description": "The sublevel set {x | f(x) <= a} of a convex function is a convex set.",
+        "Used_In": "Proving convexity of constraint sets in almost all exams (e.g., Jan 2021, Jan 2022)"
+      },
+      {
+        "Reference": "Exercise 4.31",
+        "Source": "imo25.pdf#section.4.4",
+        "Description": "Linear functions are convex.",
+        "Used_In": "Used with Lemma 4.27 to show linear inequalities define convex sets"
+      },
+      {
+        "Reference": "Exercise 4.23",
+        "Source": "imo25.pdf#section.4.3",
+        "Description": "The intersection of convex sets is convex.",
+        "Used_In": "Combining multiple constraints to prove the feasible region C is convex"
+      },
+      {
+        "Reference": "Corollary 6.52",
+        "Source": "imo25.pdf#section.6.5",
+        "Description": "A 1-variable twice differentiable function is convex iff f''(x) >= 0 (strictly convex if > 0).",
+        "Used_In": "Jan 2022 Problem 3"
+      },
+      {
+        "Reference": "Theorem 8.23",
+        "Source": "imo25.pdf#section.8.5",
+        "Description": "A several-variable twice differentiable function is convex iff its Hessian matrix is positive semidefinite.",
+        "Used_In": "Checking convexity of objective functions in almost all exams"
+      }
+    ]
+  },
+  "Optimization_Theory": {
+    "Existence_and_Uniqueness": [
+      {
+        "Reference": "Theorem 5.66 (Extreme Value Theorem)",
+        "Source": "imo25.pdf#section.5.8",
+        "Description": "A continuous function on a compact set attains a global minimum and maximum.",
+        "Used_In": "Justifying existence of solutions (e.g., Jan 2021, May 2025)"
+      },
+      {
+        "Reference": "Theorem 6.13",
+        "Source": "imo25.pdf#section.6.2",
+        "Description": "A strictly convex function on a convex set has at most one global minimum.",
+        "Used_In": "Proving uniqueness of solutions (e.g., May 2025)"
+      },
+      {
+        "Reference": "Definition 9.1",
+        "Source": "imo25.pdf#chapter.9",
+        "Description": "Definition of a convex optimization problem (minimizing convex f over convex C).",
+        "Used_In": "Classifying problems (Jan 2022)"
+      }
+    ],
+    "Methods": [
+      {
+        "Reference": "Theorem 9.34 (KKT Theorem)",
+        "Source": "imo25.pdf#section.9.4",
+        "Description": "Necessary (and sufficient for convex problems with Slater's condition) conditions for optimality.",
+        "Used_In": "Solving optimization problems in almost all exams"
+      },
+      {
+        "Reference": "Proposition 7.44",
+        "Source": "imo25.pdf#section.7.10",
+        "Description": "If an optimal solution is in the interior, it must be a critical point (gradient is zero).",
+        "Used_In": "May 2025 Problem 1c"
+      },
+      {
+        "Reference": "Section 7.10 Strategy",
+        "Source": "imo25.pdf#section.7.10",
+        "Description": "Method for optimizing over a closed bounded set by checking critical points in the interior and optimizing on the boundary.",
+        "Used_In": "May 2025 Problem 1f"
+      },
+      {
+        "Reference": "Definition 7.17",
+        "Source": "imo25.pdf#section.7.5",
+        "Description": "Definition of critical points (gradient equals zero).",
+        "Used_In": "Finding candidates for local extrema (May 2022)"
+      },
+      {
+        "Reference": "Theorem 8.12",
+        "Source": "imo25.pdf#section.8.4",
+        "Description": "Second derivative test for local extrema (Hessian definiteness).",
+        "Used_In": "Classifying critical points (May 2022)"
+      }
+    ]
+  },
+  "Topology_and_Sets": {
+    "Definitions": [
+      {
+        "Reference": "Definition 5.29",
+        "Source": "imo25.pdf#section.5.6",
+        "Description": "Definition of a bounded set (contained in a ball).",
+        "Used_In": "Proving compactness"
+      },
+      {
+        "Reference": "Definition 5.38 / Proposition 5.39",
+        "Source": "imo25.pdf#section.5.6",
+        "Description": "Definition of closed sets and the fact that intersections of closed sets are closed.",
+        "Used_In": "Proving compactness"
+      },
+      {
+        "Reference": "Definition 5.43",
+        "Source": "imo25.pdf#section.5.6",
+        "Description": "Definition of a compact set (closed and bounded).",
+        "Used_In": "Prerequisite for Extreme Value Theorem"
+      },
+      {
+        "Reference": "Definition 5.44 / 5.46",
+        "Source": "imo25.pdf#section.5.6",
+        "Description": "Definitions of Interior (strict inequalities) and Boundary (equalities).",
+        "Used_In": "May 2025 Problem 1a, June 2021"
+      }
+    ]
+  },
+  "Linear_Algebra_and_Matrices": {
+    "Results": [
+      {
+        "Reference": "Section 3.7 / Definition 3.25",
+        "Source": "imo25.pdf#section.3.7",
+        "Description": "Definition of Positive Semidefinite matrices (v^T A v >= 0).",
+        "Used_In": "Jan 2022, May 2025"
+      },
+      {
+        "Reference": "Theorem 3.32 / Section 8.6",
+        "Source": "imo25.pdf#section.8.6",
+        "Description": "Criteria for positive definiteness (eigenvalues, principal minors).",
+        "Used_In": "Checking Hessian matrices (Jan 2021, May 2023)"
+      },
+      {
+        "Reference": "Section 3.5",
+        "Source": "imo25.pdf#section.3.5",
+        "Description": "Matrix inversion and solving linear systems.",
+        "Used_In": "Jan 2022, Jan 2025"
+      },
+      {
+        "Reference": "Section 8.7",
+        "Source": "imo25.pdf#section.8.7",
+        "Description": "Symmetric reductions/schematic procedure for checking positive semidefiniteness.",
+        "Used_In": "May 2024 Problem 2"
+      }
+    ]
+  },
+  "Specific_Algorithms_and_Geometry": {
+    "Items": [
+      {
+        "Reference": "Section 4.5",
+        "Source": "imo25.pdf#section.4.5",
+        "Description": "Fourier-Motzkin Elimination algorithm.",
+        "Used_In": "Solving linear inequality systems (Jan 2023, Jan 2024, May 2024)"
+      },
+      {
+        "Reference": "Section 2.3",
+        "Source": "imo25.pdf#section.2.3",
+        "Description": "Gaussian Elimination.",
+        "Used_In": "Solving linear systems (Jan 2021, Jan 2023)"
+      },
+      {
+        "Reference": "Section 9.1",
+        "Source": "imo25.pdf#section.9.1",
+        "Description": "Separating Hyperplane Theorem / Geometry.",
+        "Used_In": "Separation problems (Jan 2024, Jan 2025)"
+      }
+    ]
+  }
+}
