@@ -1,3 +1,6 @@
+def print_latex(*args, **kwargs):
+    print(latex(args,kwargs))
+
 def solve_kkt_min(f, vars, g_list, show_latex=False):
     """
     Solves a minimization problem using KKT conditions.
@@ -139,7 +142,7 @@ def solve_kkt_min(f, vars, g_list, show_latex=False):
             print(f"  {v} = {best['point'][v]}")
         print("-" * 30)
 
-def symmetric_reduction(A):
+def symmetric_reduction(A, show_latex=False):
     """
     Performs the symmetric reduction algorithm described in section 8.7.
     Transforms a symmetric matrix A into a diagonal matrix D using congruence transformations.
@@ -163,7 +166,10 @@ def symmetric_reduction(A):
     M[n:2*n, 0:n] = A
 
     print("Initial extended matrix [I // A]:")
-    show(M)
+    if show_latex:
+        print_latex(M)
+    else:
+        show(M)
     print("\n" + "="*40 + "\n")
 
     # Iterate through diagonal elements (pivots)
@@ -192,7 +198,10 @@ def symmetric_reduction(A):
                 M.swap_rows(n+k, n+swap_index)
                 
                 print("\nMatrix after swap:")
-                show(M)
+                if show_latex:
+                    print_latex(M)
+                else:
+                    show(M)
                 print("-" * 20)
             else:
                 # Strategy B: All subsequent diagonals are zero.
@@ -213,7 +222,10 @@ def symmetric_reduction(A):
                     M.add_multiple_of_row(n+k, n+add_index, 1)
                     
                     print("\nMatrix after addition:")
-                    show(M)
+                    if show_latex:
+                        print_latex(M)
+                    else:
+                        show(M)
                     print("-" * 20)
                 else:
                     print(f"Column {k} in A block is strictly zero. No operations needed.")
@@ -243,7 +255,10 @@ def symmetric_reduction(A):
                 M.add_multiple_of_row(n+j, n+k, -factor)
                 
                 print("\nMatrix after elimination step:")
-                show(M)
+                if show_latex:
+                    print_latex(M)
+                else:
+                    show(M)
                 print("-" * 20)
         print("\n")
 
