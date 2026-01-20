@@ -139,3 +139,127 @@ def solve_kkt_min(f, vars, g_list, show_latex=False):
             print(f"  {v} = {best['point'][v]}")
         print("-" * 30)
 
+def symmetric_reduction(A):
+    """
+    Performs the symmetric reduction algorithm described in section 8.7.
+    Transforms a symmetric matrix A into a diagonal matrix D using congruence transformations.
+    Returns matrices B and D such that B.T * A * B = D.
+    
+    Args:
+        A: A symmetric matrix (Sage matrix object)
+    """
+    # Check for symmetry
+    if not A.is_symmetric():
+        print("Error: Matrix is not symmetric.")
+        return
+
+    n = A.nrows()
+    # Create the extended matrix (2n x n)
+    # The top n rows form the identity matrix
+    # The bottom n rows form the matrix A
+    # We use QQ (Rational Field) to handle exact arithmetic
+    M = matrix(QQ, 2*n, n)
+    M[0:n, 0:n] = identity_matrix(n)
+    M[n:2*n, 0:n] = A
+
+    print("Initial extended matrix [I // A]:")
+    show(M)
+    print("\n" + "="*40 + "\n")
+
+    # Iterate through diagonal elements (pivots)
+    for k in range(n):
+        print(f"--- Processing pivot step k={k} ---")
+        
+        # Step 1: Ensure we have a non-zero pivot at M[n+k, k]
+        # This corresponds to A[k, k]
+        pivot_val = M[n+k, k]
+        
+        if pivot_val == 0:
+            # Strategy A: Look for a non-zero diagonal element later in the matrix
+            swap_index = -1
+            for j in range(k+1, n):
+                if M[n+j, j] != 0:
+                    swap_index = j
+                    break
+            
+            if swap_index != -1:
+                print(f"Pivot A[{k},{k}] is zero.")
+                print(f"Strategy: Swap index {k} with {swap_index} (non-zero diagonal found).")
+                print(f"  1. Swap Column {k} <-> Column {swap_index} (Full matrix)")
+                print(f"  2. Swap Row {k} <-> Row {swap_index} (Bottom A-block only)")
+                
+                M.swap_columns(k, swap_index)
+                M.swap_rows(n+k, n+swap_index)
+                
+                print("\nMatrix after swap:")
+                show(M)
+                print("-" * 20)
+            else:
+                # Strategy B: All subsequent diagonals are zero.
+                # Look for a non-zero off-diagonal element A[j, k] with j > k
+                add_index = -1
+                for j in range(k+1, n):
+                    if M[n+j, k] != 0:
+                        add_index = j
+                        break
+                
+                if add_index != -1:
+                    print(f"Pivot A[{k},{k}] is zero and no non-zero diagonals exist.")
+                    print(f"Strategy: Add index {add_index} to {k} (non-zero off-diagonal found).")
+                    print(f"  1. Col {k} = Col {k} + Col {add_index}")
+                    print(f"  2. Row {k} = Row {k} + Row {add_index} (Bottom A-block only)")
+                    
+                    M.add_multiple_of_column(k, add_index, 1)
+                    M.add_multiple_of_row(n+k, n+add_index, 1)
+                    
+                    print("\nMatrix after addition:")
+                    show(M)
+                    print("-" * 20)
+                else:
+                    print(f"Column {k} in A block is strictly zero. No operations needed.")
+                    continue
+
+        # Update pivot after potential swaps/adds
+        pivot = M[n+k, k]
+        if pivot == 0:
+            continue # Should be handled by logic above, but safety check for singular matrices
+
+        # Step 2: Eliminate entries to the right of the pivot in the current row of A
+        # We perform column operations to zero out A[k, j] for j > k
+        # followed by symmetric row operations.
+        for j in range(k+1, n):
+            target = M[n+k, j] # Element at A[k, j]
+            
+            if target != 0:
+                factor = target / pivot
+                print(f"Eliminating A[{k}, {j}] = {target} using pivot {pivot}.")
+                print(f"  factor = {target} / {pivot} = {factor}")
+                print(f"  1. Col {j} = Col {j} - ({factor}) * Col {k}")
+                print(f"  2. Row {j} = Row {j} - ({factor}) * Row {k} (Bottom A-block only)")
+                
+                # Column operation on full matrix
+                M.add_multiple_of_column(j, k, -factor)
+                # Row operation on bottom block (rows n to 2n-1)
+                M.add_multiple_of_row(n+j, n+k, -factor)
+                
+                print("\nMatrix after elimination step:")
+                show(M)
+                print("-" * 20)
+        print("\n")
+
+    # Extract result matrices
+    B = M[0:n, 0:n]
+    D = M[n:2*n, 0:n]
+    
+    print("="*40)
+    print("Final Result:")
+    print("Matrix B (Transformation):")
+    print(B)
+    print("\nMatrix D (Diagonal):")
+    print(D)
+    
+    # Verification step
+    # print("\nVerification (B.T * A * B == D):")
+    # print(B.T * A * B == D)
+    
+    return B, D
