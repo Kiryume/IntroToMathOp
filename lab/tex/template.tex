@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{ dsfont }
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usetikzlibrary{automata,arrows,positioning, patterns}
+\usepackage{float}
+\usepackage[makeroom]{cancel}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{coffeestains}
+\usepackage{lipsum}  
+\usepackage{datetime}
+\newdateformat{czechDate}{\THEDAY. \twodigit{\THEMONTH}. \THEYEAR}
+\usepackage{graphicx}
+\usepackage[most]{tcolorbox} 
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{graphicx}
+\usepackage{svg}
+
+
+\renewcommand{\maketitle}{
+	\begin{center}
+		\LARGE
+		\textbf{\subject}\par
+	\end{center}
+	\begin{center}
+		\Huge\bfseries
+		\homework\par
+	\end{center}
+	\vspace{0.4cm}
+	\begin{center}
+		\textbf{\authorOneName} (\authorOneID)\\
+		\czechDate\today
+	\end{center}
+	\vspace{0.4cm}
+}
+
+\renewcommand{\baselinestretch}{1.2}
+\renewcommand{\normalsize}{\fontsize{12pt}{\baselineskip}\selectfont}
+\setlength{\parskip}{1em}
+
+\definecolor{bluishCajthaml}{HTML}{4bcffa}
+\newcommand{\infobox}[2]{%
+	\begin{center}
+		\begin{tcolorbox}[
+			colback=bluishCajthaml,
+			colframe=white,
+			arc=0mm,
+			width=0.9\textwidth,
+			]
+			#1
+		\end{tcolorbox}
+	\end{center}
+}
+
+\renewcommand{\figurename}{Fig.}
+
+
+% Change here and below! :)
+\def \subject {Introduction to Mathematics and Optimisation}
+\def \homework {January 2026}
+\def \authorOneName {Kirsten Pleskot}
+
+\def \authorOneID {202507620}
+
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{Problem 1}
+
+\end{document}

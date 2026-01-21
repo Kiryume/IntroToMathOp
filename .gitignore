@@ -1,2 +1,7 @@
 .ipynb_checkpoints
 __pycache__
+lab/tex/template.aux
+lab/tex/template.log
+lab/tex/template.out
+lab/tex/template.pdf
+lab/tex/template.synctex.gz
