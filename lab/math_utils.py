@@ -278,3 +278,84 @@ def symmetric_reduction(A, show_latex=False):
     # print(B.T * A * B == D)
     
     return B, D
+
+
+def fourier_motzkin_step(inequalities, var_to_eliminate):
+    """
+    Performs one step of Fourier-Motzkin elimination for a single variable.
+    
+    Args:
+        inequalities: A list of symbolic inequalities (e.g., [x + y <= 1, ...])
+        var_to_eliminate: The symbolic variable to eliminate (e.g., z)
+        
+    Returns:
+        A new list of inequalities with the variable eliminated.
+    """
+    upper_bounds = []
+    lower_bounds = []
+    independent = []
+    
+    print(f"--- Eliminating variable: {var_to_eliminate} ---")
+    
+    for ineq in inequalities:
+        # Standardize inequality to form: expr <= 0
+        # lhs() returns the left-hand side, rhs() the right.
+        expr = (ineq.lhs() - ineq.rhs()).expand()
+        
+        # Get coefficient of the variable
+        coeff = expr.coefficient(var_to_eliminate)
+        
+        # If coeff is 0, the inequality doesn't involve the variable
+        if coeff == 0:
+            independent.append(ineq)
+            continue
+            
+        # Rearrange to isolate variable: 
+        # If coeff > 0:  coeff * var + rest <= 0  -->  var <= -rest / coeff  (Upper Bound)
+        # If coeff < 0:  coeff * var + rest <= 0  -->  var >= -rest / coeff  (Lower Bound)
+        
+        rest = expr - coeff * var_to_eliminate
+        bound = -rest / coeff
+        
+        if coeff > 0:
+            upper_bounds.append(bound)
+            print(f"Found Upper Bound: {var_to_eliminate} <= {bound}")
+        else:
+            lower_bounds.append(bound)
+            print(f"Found Lower Bound: {var_to_eliminate} >= {bound}")
+
+    new_inequalities = []
+    
+    # 1. Combine every Lower Bound with every Upper Bound
+    # L <= var <= U  implies  L <= U
+    print(f"\nGenerating new constraints (L <= U):")
+    if not lower_bounds and not upper_bounds:
+         print("No bounds found for this variable. It is unconstrained.")
+    elif not lower_bounds:
+         print("Only upper bounds found. Variable can go to -infinity.")
+    elif not upper_bounds:
+         print("Only lower bounds found. Variable can go to +infinity.")
+            
+    for l in lower_bounds:
+        for u in upper_bounds:
+            # Form the new inequality: L <= U  -->  L - U <= 0
+            new_ineq = (l <= u)
+            print(f"  ({l}) <= ({u})  -->  {new_ineq}")
+            new_inequalities.append(new_ineq)
+            
+    # 2. Add independent inequalities back to the set
+    for indep in independent:
+        new_inequalities.append(indep)
+        
+    print(f"--- Step Complete. New system size: {len(new_inequalities)} ---\n")
+    return new_inequalities
+
+def solve_fourier_motzkin(inequalities, vars_to_elim):
+    """
+    Iteratively eliminates a list of variables.
+    """
+    current_system = inequalities
+    for var in vars_to_elim:
+        current_system = fourier_motzkin_step(current_system, var)
+    
+    return current_system
